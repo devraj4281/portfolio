@@ -14,7 +14,7 @@ export default function ProjectCard({ project, index }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="group relative bg-card border border-border rounded-xl p-6 md:p-8 hover:bg-accent/5 transition-all duration-300"
+        className="group relative bg-card border border-border rounded-xl p-6 md:p-8 hover:bg-muted transition-all duration-300"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
