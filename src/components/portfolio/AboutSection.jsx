@@ -1,29 +1,33 @@
 import { motion } from "framer-motion";
+import { Code2, Layout, Server, Database, Wrench } from "lucide-react";
 
 const SKILLS = [
   {
     label: "Languages",
+    icon: Code2,
     items: ["JavaScript", "TypeScript", "Python", "C++", "HTML5", "CSS3"],
   },
   {
     label: "Frontend",
+    icon: Layout,
     items: ["React.js", "Next.js", "Tailwind CSS", "Framer Motion", "Zustand", "TanStack Query"],
   },
   {
     label: "Backend",
-    items: ["Node.js", "Express.js", "API Integration", "JWT", "Socket.io", "Arcjet"],
+    icon: Server,
+    items: ["Node.js", "Express.js", "REST APIs", "JWT", "Socket.io", "Arcjet"],
   },
   {
     label: "DB & Cloud",
+    icon: Database,
     items: ["MongoDB", "Supabase", "Cloudinary"],
   },
   {
     label: "Tools",
+    icon: Wrench,
     items: ["Git", "GitHub", "Docker", "Postman", "Vercel", "Render", "Razorpay"],
   },
 ];
-
-
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -59,35 +63,50 @@ export default function AboutSection() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="mt-16"
         >
-          <p className="font-mono-label text-muted-foreground mb-6">
+          <p className="font-mono-label text-muted-foreground mb-8">
             TECH STACK
           </p>
-          
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-[1px] bg-border rounded-lg overflow-hidden border border-border">
-            {SKILLS.map((group, i) => {
-              const isLast = i === SKILLS.length - 1;
-              const isOdd = SKILLS.length % 2 !== 0;
+          <div className="space-y-6">
+            {SKILLS.map((group, groupIndex) => {
+              const Icon = group.icon;
               return (
-                <div
+                <motion.div
                   key={group.label}
-                  className={`bg-background p-4 sm:p-5 group hover:bg-muted transition-colors ${
-                    isLast && isOdd ? "col-span-2 lg:col-span-1" : ""
-                  }`}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: groupIndex * 0.08 }}
+                  className="flex flex-col sm:flex-row sm:items-start gap-3"
                 >
-                  <p className="font-mono-label text-accent mb-3">
-                    {group.label}
-                  </p>
-                  <ul className="space-y-1.5">
-                    {group.items.map((item) => (
-                      <li
+                  {/* Category label */}
+                  <div className="flex items-center gap-2 shrink-0 w-36">
+                    <div className="p-1.5 rounded-md bg-accent/10 text-accent">
+                      <Icon className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="font-mono-label text-muted-foreground">
+                      {group.label}
+                    </span>
+                  </div>
+
+                  {/* Skill pills */}
+                  <div className="flex flex-wrap gap-2">
+                    {group.items.map((item, itemIndex) => (
+                      <motion.span
                         key={item}
-                        className="text-sm text-muted-foreground group-hover:text-foreground transition-colors"
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.3,
+                          delay: groupIndex * 0.08 + itemIndex * 0.04,
+                        }}
+                        className="px-3 py-1 text-sm rounded-full border border-border bg-card text-foreground hover:border-accent hover:text-accent transition-colors cursor-default"
                       >
                         {item}
-                      </li>
+                      </motion.span>
                     ))}
-                  </ul>
-                </div>
+                  </div>
+                </motion.div>
               );
             })}
           </div>
